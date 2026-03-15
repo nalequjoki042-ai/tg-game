@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TG Game</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div id="app">
+    <div id="status-bar">
+      <span id="tg-user">Loading...</span>
+      <span id="ws-status" class="badge badge--disconnected">&#9679; WS</span>
+    </div>
+    <div id="game-area">
+      <h1>🎮 Scaffold OK</h1>
+      <p id="ping-result">WebSocket: not connected</p>
+      <button id="btn-ping">⚡ Ping Server</button>
+    </div>
+  </div>
+  <script src="/static/game.js"></script>
+</body>
+</html>
