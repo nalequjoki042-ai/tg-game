@@ -1,0 +1,68 @@
+INFO:     Started server process [22072]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+[SERVER] Starting up...
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET / HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /static/style.css HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /static/game.js HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     ('38.180.229.62', 0) - "WebSocket /ws?tg_id=800324475&first_name=username" [accepted]
+INFO:     connection open
+INFO:     connection closed
+INFO:     Started server process [12756]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+[SERVER] Starting up...
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET / HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /static/style.css HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /static/game.js HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     ('38.180.229.62', 0) - "WebSocket /ws?tg_id=0&first_name=Guest" [accepted]
+INFO:     connection open
+[WS] Player connected: Guest (0)
+[DB] Tables ready
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET /leaderboard HTTP/1.1" 200 OK
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET /leaderboard HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET / HTTP/1.1" 200 OK
+INFO:     connection closed
+[WS] Player 0 disconnected
+INFO:     38.180.229.62:0 - "GET /static/style.css HTTP/1.1" 304 Not Modified
+INFO:     38.180.229.62:0 - "GET /static/game.js HTTP/1.1" 304 Not Modified
+INFO:     ('38.180.229.62', 0) - "WebSocket /ws?tg_id=0&first_name=Guest" [accepted]
+INFO:     connection open
+[WS] Player connected: Guest (0)
+[DB] Tables ready
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET /leaderboard HTTP/1.1" 200 OK
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET /leaderboard HTTP/1.1" 200 OK
+INFO:     ('38.180.229.62', 0) - "WebSocket /ws?tg_id=0&first_name=Guest" [accepted]
+INFO:     connection open
+[WS] Player connected: Guest (0)
+[DB] Tables ready
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET /leaderboard HTTP/1.1" 200 OK
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET /leaderboard HTTP/1.1" 200 OK
+INFO:     connection closed
+[WS] Player 0 disconnected
+INFO:     38.180.229.62:0 - "GET / HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /static/style.css HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /static/game.js HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     ('38.180.229.62', 0) - "WebSocket /ws?tg_id=0&first_name=Guest" [accepted]
+INFO:     connection open
+[WS] Player connected: Guest (0)
+[DB] Tables ready
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET /leaderboard HTTP/1.1" 200 OK
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET /leaderboard HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     connection closed

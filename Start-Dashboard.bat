@@ -1,3 +1,9 @@
 @echo off
 cd /d "%~dp0"
-start "" ".\venv\Scripts\pythonw.exe" "dashboard.py"
+echo Starting Dashboard...
+.\venv\Scripts\python.exe dashboard.py
+if %ERRORLEVEL% NEQ 0 (
+    echo.
+    echo [ERROR] Dashboard failed to start. See error above.
+    pause
+)

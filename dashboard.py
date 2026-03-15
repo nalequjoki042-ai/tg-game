@@ -1,4 +1,4 @@
-import tk
+import tkinter as tk
 from tkinter import ttk, scrolledtext, messagebox
 import subprocess
 import threading
@@ -41,6 +41,9 @@ class ProcessManager(tk.Tk):
         self.btn_stop = ttk.Button(top_frame, text="⏹ Остановить всё", command=self.stop_all, state=tk.DISABLED)
         self.btn_stop.pack(side=tk.LEFT, padx=5)
 
+        self.btn_pull = ttk.Button(top_frame, text="🔄 Обновить с GitHub", command=self.git_pull)
+        self.btn_pull.pack(side=tk.LEFT, padx=5)
+
         btn_open_logs = ttk.Button(top_frame, text="📂 Открыть папку логов", command=self.open_logs_dir)
         btn_open_logs.pack(side=tk.LEFT, padx=5)
 
@@ -81,6 +84,19 @@ class ProcessManager(tk.Tk):
 
     def open_logs_dir(self):
         os.startfile(LOGS_DIR)
+
+    def git_pull(self):
+        if messagebox.askyesno("Обновление", "Остановить процессы и скачать обновление с GitHub?"):
+            self.stop_all()
+            self.log("server", "\n--- ОБНОВЛЕНИЕ С GITHUB ---\n")
+            try:
+                result = subprocess.run(['git', 'pull', 'origin', 'main'], capture_output=True, text=True, cwd=BASE_DIR)
+                self.log("server", result.stdout)
+                if result.stderr:
+                    self.log("server", f"Внимание/Ошибка: {result.stderr}")
+                messagebox.showinfo("Готово", "Обновление завершено! Проверьте логи во вкладке сервера.")
+            except Exception as e:
+                messagebox.showerror("Ошибка", f"Не удалось обновиться: {e}")
 
     def copy_tab_logs(self, proc_id):
         st = self.tabs[proc_id]['st']
@@ -125,12 +141,11 @@ class ProcessManager(tk.Tk):
         self.status_var.set("Остановка...")
         for proc_id, p in list(self.processes.items()):
             if p.poll() is None:
-                self.log(proc_id, f"\n--- Остановка {self.tabs[proc_id]['name']} ---\n")
+                self.log(proc_id, f"\n--- ПРИНУДИТЕЛЬНАЯ ОСТАНОВКА {self.tabs[proc_id]['name']} ---\n")
                 try:
-                    p.terminate()
-                    p.wait(timeout=3)
-                except Exception:
-                    p.kill()
+                    subprocess.run(['taskkill', '/F', '/T', '/PID', str(p.pid)], capture_output=True)
+                except Exception as e:
+                    self.log(proc_id, f"Ошибка при остановке: {e}\n")
         self.processes.clear()
         self.btn_start.config(state=tk.NORMAL)
         self.btn_stop.config(state=tk.DISABLED)
@@ -187,6 +202,5 @@ class ProcessManager(tk.Tk):
         self.destroy()
 
 if __name__ == "__main__":
-    import tkinter as tk # исправляю опечатку импорта
     app = ProcessManager()
     app.mainloop()
