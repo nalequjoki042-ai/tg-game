@@ -39,7 +39,7 @@ def update_telegram_bot_url(bot_token: str, new_url: str) -> str:
     payload = json.dumps({
         "menu_button": {
             "type": "web_app",
-            "text": "🎮 Играть",
+            "text": "\U0001f3ae \u0418\u0433\u0440\u0430\u0442\u044c",
             "web_app": {"url": new_url}
         }
     }).encode()
@@ -52,17 +52,17 @@ def update_telegram_bot_url(bot_token: str, new_url: str) -> str:
         with urllib.request.urlopen(req, timeout=10) as resp:
             result = json.loads(resp.read())
             if result.get("ok"):
-                return f"✅ Telegram bot URL обновлён: {new_url}"
+                return f"\u2705 Telegram bot URL \u043e\u0431\u043d\u043e\u0432\u043b\u0451\u043d: {new_url}"
             else:
-                return f"⚠️ Telegram API ошибка: {result}"
+                return f"\u26a0\ufe0f Telegram API \u043e\u0448\u0438\u0431\u043a\u0430: {result}"
     except Exception as e:
-        return f"❌ Не удалось обновить Telegram: {e}"
+        return f"\u274c \u041d\u0435 \u0443\u0434\u0430\u043b\u043e\u0441\u044c \u043e\u0431\u043d\u043e\u0432\u0438\u0442\u044c Telegram: {e}"
 
 
 class ProcessManager(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title(f"Панель управления TG Игрой  |  v{APP_VERSION}")
+        self.title(f"\u041f\u0430\u043d\u0435\u043b\u044c \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u044f TG \u0418\u0433\u0440\u043e\u0439  |  v{APP_VERSION}")
         self.geometry("900x650")
         self.processes = {}
         self.queues = {}
@@ -78,27 +78,26 @@ class ProcessManager(tk.Tk):
         top_frame = ttk.Frame(self)
         top_frame.pack(fill=tk.X, padx=10, pady=10)
 
-        self.btn_start = ttk.Button(top_frame, text="▶ Запустить всё", command=self.start_all)
+        self.btn_start = ttk.Button(top_frame, text="\u25b6 \u0417\u0430\u043f\u0443\u0441\u0442\u0438\u0442\u044c \u0432\u0441\u0451", command=self.start_all)
         self.btn_start.pack(side=tk.LEFT, padx=5)
 
-        self.btn_stop = ttk.Button(top_frame, text="⏹ Остановить всё", command=self.stop_all, state=tk.DISABLED)
+        self.btn_stop = ttk.Button(top_frame, text="\u23f9 \u041e\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u044c \u0432\u0441\u0451", command=self.stop_all, state=tk.DISABLED)
         self.btn_stop.pack(side=tk.LEFT, padx=5)
 
-        self.btn_pull = ttk.Button(top_frame, text="🔄 Обновить с GitHub", command=self.git_pull)
+        self.btn_pull = ttk.Button(top_frame, text="\U0001f504 \u041e\u0431\u043d\u043e\u0432\u0438\u0442\u044c \u0441 GitHub", command=self.git_pull)
         self.btn_pull.pack(side=tk.LEFT, padx=5)
 
-        btn_open_logs = ttk.Button(top_frame, text="📂 Открыть папку логов", command=self.open_logs_dir)
+        btn_open_logs = ttk.Button(top_frame, text="\U0001f4c2 \u041e\u0442\u043a\u0440\u044b\u0442\u044c \u043f\u0430\u043f\u043a\u0443 \u043b\u043e\u0433\u043e\u0432", command=self.open_logs_dir)
         btn_open_logs.pack(side=tk.LEFT, padx=5)
 
-        self.url_label = ttk.Label(top_frame, text="URL: Ожидание Cloudflare...", foreground="blue", cursor="hand2")
+        self.url_label = ttk.Label(top_frame, text="URL: \u041e\u0436\u0438\u0434\u0430\u043d\u0438\u0435 Cloudflare...", foreground="blue", cursor="hand2")
         self.url_label.pack(side=tk.LEFT, padx=15)
         self.url_label.bind("<Button-1>", lambda e: self.copy_url())
 
-        self.status_var = tk.StringVar(value="Остановлено")
+        self.status_var = tk.StringVar(value="\u041e\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d\u043e")
         status_label = ttk.Label(top_frame, textvariable=self.status_var, font=('Arial', 10, 'bold'))
         status_label.pack(side=tk.RIGHT, padx=10)
 
-        # Version badge in top-right
         version_label = ttk.Label(top_frame, text=f"v{APP_VERSION}", foreground="gray", font=('Arial', 9))
         version_label.pack(side=tk.RIGHT, padx=5)
 
@@ -106,9 +105,9 @@ class ProcessManager(tk.Tk):
         self.notebook.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
 
         self.tabs = {}
-        self.add_tab("🌐 Cloudflare", "cloudflare", [CLOUDFLARED_EXE, "tunnel", "--url", "http://localhost:8000"])
-        self.add_tab("⚙️ Сервер (FastAPI)", "server", [PYTHON_EXE, "-m", "uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"])
-        self.add_tab("🤖 Бот (Telegram)", "bot", [PYTHON_EXE, os.path.join(BASE_DIR, "backend", "bot.py")])
+        self.add_tab("\U0001f310 Cloudflare", "cloudflare", [CLOUDFLARED_EXE, "tunnel", "--url", "http://localhost:8000"])
+        self.add_tab("\u2699\ufe0f \u0421\u0435\u0440\u0432\u0435\u0440 (FastAPI)", "server", [PYTHON_EXE, "-m", "uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"])
+        self.add_tab("\U0001f916 \u0411\u043e\u0442 (Telegram)", "bot", [PYTHON_EXE, os.path.join(BASE_DIR, "backend", "bot.py")])
 
         self.after(100, self.update_logs)
 
@@ -116,7 +115,7 @@ class ProcessManager(tk.Tk):
         if self.current_url:
             self.clipboard_clear()
             self.clipboard_append(self.current_url)
-            messagebox.showinfo("Скопировано", f"URL скопирован:\n{self.current_url}")
+            messagebox.showinfo("\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e", f"URL \u0441\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d:\n{self.current_url}")
 
     def add_tab(self, name, proc_id, cmd):
         frame = ttk.Frame(self.notebook)
@@ -125,7 +124,7 @@ class ProcessManager(tk.Tk):
         toolbar = ttk.Frame(frame)
         toolbar.pack(fill=tk.X, padx=5, pady=2)
 
-        btn_copy = ttk.Button(toolbar, text="📋 Копировать логи", command=lambda p=proc_id: self.copy_tab_logs(p))
+        btn_copy = ttk.Button(toolbar, text="\U0001f4cb \u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u043b\u043e\u0433\u0438", command=lambda p=proc_id: self.copy_tab_logs(p))
         btn_copy.pack(side=tk.LEFT)
 
         st = scrolledtext.ScrolledText(frame, state='disabled', bg='#1e1e1e', fg='#cccccc', font=('Consolas', 10))
@@ -138,39 +137,38 @@ class ProcessManager(tk.Tk):
         os.startfile(LOGS_DIR)
 
     def git_pull(self):
-        if messagebox.askyesno("Обновление", "Остановить процессы и скачать обновление с GitHub?"):
+        if messagebox.askyesno("\u041e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u0435", "\u041e\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u044c \u043f\u0440\u043e\u0446\u0435\u0441\u0441\u044b \u0438 \u0441\u043a\u0430\u0447\u0430\u0442\u044c \u043e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u0435 \u0441 GitHub?"):
             self.stop_all()
-            self.log("server", "\n--- ОБНОВЛЕНИЕ С GITHUB ---\n")
+            self.log("server", "\n--- \u041e\u0411\u041d\u041e\u0412\u041b\u0415\u041d\u0418\u0415 \u0421 GITHUB ---\n")
             try:
                 result = subprocess.run(['git', 'pull', 'origin', 'main'], capture_output=True, text=True, cwd=BASE_DIR)
                 self.log("server", result.stdout)
                 if result.stderr:
-                    self.log("server", f"Внимание/Ошибка: {result.stderr}")
-                messagebox.showinfo("Готово", "Обновление завершено!")
+                    self.log("server", f"\u0412\u043d\u0438\u043c\u0430\u043d\u0438\u0435/\u041e\u0448\u0438\u0431\u043a\u0430: {result.stderr}")
+                messagebox.showinfo("\u0413\u043e\u0442\u043e\u0432\u043e", "\u041e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u0435 \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u043e!")
             except Exception as e:
-                messagebox.showerror("Ошибка", f"Не удалось обновиться: {e}")
+                messagebox.showerror("\u041e\u0448\u0438\u0431\u043a\u0430", f"\u041d\u0435 \u0443\u0434\u0430\u043b\u043e\u0441\u044c \u043e\u0431\u043d\u043e\u0432\u0438\u0442\u044c\u0441\u044f: {e}")
 
     def copy_tab_logs(self, proc_id):
         st = self.tabs[proc_id]['st']
         logs = st.get("1.0", tk.END)
         self.clipboard_clear()
         self.clipboard_append(logs)
-        messagebox.showinfo("Успех", f"Логи скопированы!")
+        messagebox.showinfo("\u0423\u0441\u043f\u0435\u0445", "\u041b\u043e\u0433\u0438 \u0441\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u044b!")
 
     def start_all(self):
         self.btn_start.config(state=tk.DISABLED)
         self.btn_stop.config(state=tk.NORMAL)
-        self.status_var.set("Работает")
+        self.status_var.set("\u0420\u0430\u0431\u043e\u0442\u0430\u0435\u0442")
 
         for proc_id, info in self.tabs.items():
             if proc_id not in self.processes or self.processes[proc_id].poll() is not None:
-                self.log(proc_id, f"--- Запуск {info['name']} ({datetime.now().strftime('%H:%M:%S')}) ---\n")
+                self.log(proc_id, f"--- \u0417\u0430\u043f\u0443\u0441\u043a {info['name']} ({datetime.now().strftime('%H:%M:%S')}) ---\n")
 
                 startupinfo = subprocess.STARTUPINFO()
                 startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 
                 try:
-:
                     p = subprocess.Popen(
                         info['cmd'],
                         stdout=subprocess.PIPE,
@@ -187,21 +185,21 @@ class ProcessManager(tk.Tk):
                     t = threading.Thread(target=self.read_output, args=(p, proc_id), daemon=True)
                     t.start()
                 except Exception as e:
-                    self.log(proc_id, f"Ошибка запуска: {e}\n")
+                    self.log(proc_id, f"\u041e\u0448\u0438\u0431\u043a\u0430 \u0437\u0430\u043f\u0443\u0441\u043a\u0430: {e}\n")
 
     def stop_all(self):
-        self.status_var.set("Остановка...")
+        self.status_var.set("\u041e\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0430...")
         for proc_id, p in list(self.processes.items()):
             if p.poll() is None:
-                self.log(proc_id, f"\n--- ОСТАНОВКА {self.tabs[proc_id]['name']} ---\n")
+                self.log(proc_id, f"\n--- \u041e\u0421\u0422\u0410\u041d\u041e\u0412\u041a\u0410 {self.tabs[proc_id]['name']} ---\n")
                 try:
                     subprocess.run(['taskkill', '/F', '/T', '/PID', str(p.pid)], capture_output=True)
                 except Exception as e:
-                    self.log(proc_id, f"Ошибка при остановке: {e}\n")
+                    self.log(proc_id, f"\u041e\u0448\u0438\u0431\u043a\u0430 \u043f\u0440\u0438 \u043e\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0435: {e}\n")
         self.processes.clear()
         self.btn_start.config(state=tk.NORMAL)
         self.btn_stop.config(state=tk.DISABLED)
-        self.status_var.set("Остановлено")
+        self.status_var.set("\u041e\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d\u043e")
 
     def read_output(self, process, proc_id):
         log_file_path = os.path.join(LOGS_DIR, f"{proc_id}.log")
@@ -225,9 +223,9 @@ class ProcessManager(tk.Tk):
                         url = match.group(0)
                         if url != self.current_url:
                             self.current_url = url
-                            self.url_label.config(text=f"URL: {url} (нажмите чтобы скопировать)")
+                            self.url_label.config(text=f"URL: {url} (\u043d\u0430\u0436\u043c\u0438\u0442\u0435 \u0447\u0442\u043e\u0431\u044b \u0441\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c)")
                             self.update_env_url(url)
-                            self.log("cloudflare", f"\n✅ URL ОБНОВЛЕН: {url}\n")
+                            self.log("cloudflare", f"\n\u2705 URL \u041e\u0411\u041d\u041e\u0412\u041b\u0415\u041d: {url}\n")
                             threading.Thread(
                                 target=self.notify_telegram,
                                 args=(url,),
@@ -240,7 +238,7 @@ class ProcessManager(tk.Tk):
         env = load_env()
         bot_token = env.get("BOT_TOKEN", "")
         if not bot_token:
-            self.log("cloudflare", "❌ BOT_TOKEN не найден в .env\n")
+            self.log("cloudflare", "\u274c BOT_TOKEN \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d \u0432 .env\n")
             return
         result = update_telegram_bot_url(bot_token, new_url)
         self.log("cloudflare", result + "\n")
@@ -249,7 +247,7 @@ class ProcessManager(tk.Tk):
     def restart_bot(self):
         bot_proc = self.processes.get("bot")
         if bot_proc and bot_proc.poll() is None:
-            self.log("bot", "\n--- ПЕРЕЗАПУСК БОТА (новый URL) ---\n")
+            self.log("bot", "\n--- \u041f\u0415\u0420\u0415\u0417\u0410\u041f\u0423\u0421\u041a \u0411\u041e\u0422\u0410 (\u043d\u043e\u0432\u044b\u0439 URL) ---\n")
             try:
                 subprocess.run(['taskkill', '/F', '/T', '/PID', str(bot_proc.pid)], capture_output=True)
             except:
@@ -275,9 +273,9 @@ class ProcessManager(tk.Tk):
             self.processes["bot"] = p
             t = threading.Thread(target=self.read_output, args=(p, "bot"), daemon=True)
             t.start()
-            self.log("bot", "✅ Бот перезапущен с новым URL\n")
+            self.log("bot", "\u2705 \u0411\u043e\u0442 \u043f\u0435\u0440\u0435\u0437\u0430\u043f\u0443\u0449\u0435\u043d \u0441 \u043d\u043e\u0432\u044b\u043c URL\n")
         except Exception as e:
-            self.log("bot", f"Ошибка перезапуска бота: {e}\n")
+            self.log("bot", f"\u041e\u0448\u0438\u0431\u043a\u0430 \u043f\u0435\u0440\u0435\u0437\u0430\u043f\u0443\u0441\u043a\u0430 \u0431\u043e\u0442\u0430: {e}\n")
 
     def update_env_url(self, new_url):
         try:
@@ -288,7 +286,7 @@ class ProcessManager(tk.Tk):
                 with open(ENV_PATH, 'w', encoding='utf-8') as f:
                     f.write(new_content)
         except Exception as e:
-            self.log("cloudflare", f"Ошибка обновления .env: {e}\n")
+            self.log("cloudflare", f"\u041e\u0448\u0438\u0431\u043a\u0430 \u043e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u044f .env: {e}\n")
 
     def log(self, proc_id, message):
         st = self.tabs[proc_id]['st']
