@@ -10,10 +10,20 @@
     * { margin:0; padding:0; box-sizing:border-box; }
     body { background:#000; overflow:hidden; }
     #game-container { position:fixed; top:0; left:0; }
+    #boss-gif {
+      position: fixed;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      width: 160px;
+      height: 160px;
+      object-fit: contain;
+      z-index: 10;
+    }
   </style>
 </head>
 <body>
 <div id="game-container"></div>
+<img id="boss-gif" src="/static/assets/boss.gif" alt="boss" />
 <script src="/static/arena.js"></script>
 </body>
 </html>
