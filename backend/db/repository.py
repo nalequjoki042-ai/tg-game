@@ -41,3 +41,15 @@ class Repository:
                 (player.score, json.dumps(player.data), player.tg_id)
             )
             await db.commit()
+
+    async def get_leaderboard(self, limit: int = 10) -> list[dict]:
+        async with aiosqlite.connect(DB_PATH) as db:
+            async with db.execute(
+                "SELECT tg_id, first_name, score FROM players ORDER BY score DESC LIMIT ?",
+                (limit,)
+            ) as cursor:
+                rows = await cursor.fetchall()
+        return [
+            {"tg_id": r[0], "first_name": r[1], "score": r[2]}
+            for r in rows
+        ]

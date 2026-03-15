@@ -11,28 +11,49 @@ document.getElementById('tg-user').textContent = `👤 ${firstName}`;
 const WS_URL = `wss://${location.host}/ws?tg_id=${tgId}&first_name=${encodeURIComponent(firstName)}`;
 let socket = null;
 
+async function loadLeaderboard() {
+  try {
+    const res = await fetch('/leaderboard');
+    const data = await res.json();
+    renderLeaderboard(data);
+  } catch (e) {
+    console.error('[LB] Failed to load', e);
+  }
+}
+
+function renderLeaderboard(players) {
+  const list = document.getElementById('lb-list');
+  list.innerHTML = '';
+  if (!players.length) {
+    list.innerHTML = '<li style="opacity:0.4;text-align:center;padding:8px">Никого нет</li>';
+    return;
+  }
+  players.forEach((p, i) => {
+    const li = document.createElement('li');
+    li.className = 'lb-row' + (p.tg_id === tgId ? ' me' : '');
+    li.innerHTML = `
+      <span class="lb-rank">${i + 1}</span>
+      <span class="lb-name">${p.first_name}</span>
+      <span class="lb-score">${p.score}</span>
+    `;
+    list.appendChild(li);
+  });
+}
+
 function connect() {
   socket = new WebSocket(WS_URL);
 
   socket.onopen = () => {
     setWsStatus(true);
-    console.log('[WS] Connected');
+    loadLeaderboard();
   };
 
   socket.onmessage = (event) => {
     const data = JSON.parse(event.data);
-    console.log('[WS] Message:', data);
-
-    if (data.type === 'pong') {
-      document.getElementById('ping-result').textContent = `✅ Pong! Server alive.`;
-    }
-
     if (data.type === 'state') {
-      const p = data.payload?.player;
-      if (p) {
-        document.getElementById('ping-result').textContent =
-          `🎮 ${p.first_name} | Score: ${p.score}`;
-      }
+      const score = data.payload?.player?.score ?? 0;
+      document.getElementById('score-value').textContent = score;
+      loadLeaderboard();
     }
   };
 
@@ -41,10 +62,7 @@ function connect() {
     setTimeout(connect, 3000);
   };
 
-  socket.onerror = (err) => {
-    console.error('[WS] Error:', err);
-    socket.close();
-  };
+  socket.onerror = (err) => { socket.close(); };
 }
 
 function setWsStatus(connected) {
@@ -56,8 +74,6 @@ function setWsStatus(connected) {
 document.getElementById('btn-ping').addEventListener('click', () => {
   if (socket?.readyState === WebSocket.OPEN) {
     socket.send(JSON.stringify({ type: 'ping', ts: Date.now() }));
-  } else {
-    document.getElementById('ping-result').textContent = '❌ Not connected';
   }
 });
 

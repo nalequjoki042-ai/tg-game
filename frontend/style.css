@@ -30,8 +30,7 @@ body {
   padding: 2px 8px;
   border-radius: 999px;
 }
-
-.badge--connected { background: #22c55e22; color: #22c55e; }
+.badge--connected    { background: #22c55e22; color: #22c55e; }
 .badge--disconnected { background: #ef444422; color: #ef4444; }
 
 #game-area {
@@ -40,12 +39,65 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  text-align: center;
+  gap: 24px;
 }
 
-#game-area h1 { font-size: 2rem; }
+/* Score */
+#score-block {
+  text-align: center;
+}
+#score-label {
+  font-size: 14px;
+  opacity: 0.6;
+  margin-bottom: 4px;
+}
+#score-value {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
 
+/* Leaderboard */
+#leaderboard {
+  width: 100%;
+  max-width: 340px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 16px;
+  padding: 16px;
+}
+.lb-title {
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0.5;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+#lb-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.lb-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+  font-size: 15px;
+}
+.lb-row.me {
+  background: rgba(99,102,241,0.25);
+  font-weight: 600;
+}
+.lb-rank   { opacity: 0.4; width: 24px; }
+.lb-name   { flex: 1; padding: 0 8px; }
+.lb-score  { font-weight: 700; color: #a78bfa; }
+
+/* Button */
 #btn-ping {
   background: var(--tg-theme-button-color, #5b21b6);
   color: var(--tg-theme-button-text-color, #ffffff);
@@ -56,5 +108,4 @@ body {
   cursor: pointer;
   transition: opacity 0.2s;
 }
-
 #btn-ping:active { opacity: 0.7; }

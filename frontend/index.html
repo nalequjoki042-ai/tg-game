@@ -13,9 +13,18 @@
       <span id="tg-user">Loading...</span>
       <span id="ws-status" class="badge badge--disconnected">&#9679; WS</span>
     </div>
+
     <div id="game-area">
-      <h1>🎮 Scaffold OK</h1>
-      <p id="ping-result">WebSocket: not connected</p>
+      <div id="score-block">
+        <div id="score-label">🏆 Твой счёт</div>
+        <div id="score-value">0</div>
+      </div>
+
+      <div id="leaderboard">
+        <div class="lb-title">📊 Лидерборд</div>
+        <ol id="lb-list"><li>Загрузка...</li></ol>
+      </div>
+
       <button id="btn-ping">⚡ Ping Server</button>
     </div>
   </div>
