@@ -1,0 +1,5 @@
+Hello from Perplexity MCP!
+
+Этот файл создан через MCP-интеграцию без ручного ввода кода.
+Project: Telegram Mini App Game
+Bot: @ey10_bot
