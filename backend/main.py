@@ -3,9 +3,12 @@ from pathlib import Path
 from contextlib import asynccontextmanager
 
 from dotenv import load_dotenv
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Query
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
+
+from backend.db.init_db import init_db
+from backend.api.ws_handler import handle
 
 load_dotenv()
 
@@ -15,6 +18,7 @@ FRONTEND_DIR = Path(__file__).parent.parent / "frontend"
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     print("[SERVER] Starting up...")
+    await init_db()
     yield
     print("[SERVER] Shutting down...")
 
@@ -32,20 +36,15 @@ async def index():
 
 @app.get("/health")
 async def health():
-    return {"status": "ok", "version": "0.1.0-scaffold"}
+    return {"status": "ok", "version": "0.2.0-foundation"}
 
 
 @app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket):
+async def websocket_endpoint(
+    websocket: WebSocket,
+    tg_id: int = Query(default=0),
+    first_name: str = Query(default="Guest")
+):
     await websocket.accept()
-    print(f"[WS] Client connected: {websocket.client}")
-    try:
-        while True:
-            data = await websocket.receive_json()
-            print(f"[WS] Received: {data}")
-            if data.get("type") == "ping":
-                await websocket.send_json({"type": "pong", "echo": data})
-            else:
-                await websocket.send_json({"type": "error", "message": "unknown type"})
-    except WebSocketDisconnect:
-        print(f"[WS] Client disconnected")
+    print(f"[WS] Player connected: {first_name} ({tg_id})")
+    await handle(websocket, tg_id, first_name)
