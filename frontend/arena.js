@@ -8,7 +8,6 @@ const MY_NAME = TG_USER?.first_name || 'Hero';
 const W = window.innerWidth;
 const H = window.innerHeight;
 
-// ─── WebSocket ────────────────────────────────────────────────
 let ws = null;
 let mySlot = -1;
 const players = {};
@@ -38,24 +37,25 @@ function handleMsg(msg) {
       game.scene.getScene('Arena').syncState();
     }
   }
-  if (msg.type === 'pong') {}
 }
 
-// ─── Phaser Scene ───────────────────────────────────────────
 class ArenaScene extends Phaser.Scene {
   constructor() { super('Arena'); }
 
   preload() {
-    // Загрузка GIF босса через rex-plugin
+    // Загрузка rex gif plugin изнутри preload
+    this.load.plugin(
+      'rexGifFile',
+      'https://cdn.jsdelivr.net/npm/phaser3-rex-plugins@1.60.0/dist/rexgiffileplugin.min.js',
+      true
+    );
     this.load.rexGif('boss_gif', '/static/assets/boss.gif');
 
-    // Фон плитка
     const bg = this.make.graphics({add:false});
     bg.fillStyle(0x1a0a2e); bg.fillRect(0,0,64,64);
     bg.fillStyle(0x2a1a3e,0.5); bg.fillRect(0,0,32,32); bg.fillRect(32,32,32,32);
     bg.generateTexture('tile',64,64); bg.destroy();
 
-    // Юнит игрока
     const ug = this.make.graphics({add:false});
     ug.fillStyle(0x6366f1); ug.fillRect(8,20,24,28);
     ug.fillStyle(0xfbbf24); ug.fillCircle(20,14,12);
@@ -63,13 +63,11 @@ class ArenaScene extends Phaser.Scene {
     ug.fillStyle(0x312e81); ug.fillRect(8,48,12,8); ug.fillRect(22,48,12,8);
     ug.generateTexture('unit',40,56); ug.destroy();
 
-    // Ячейка слота
     const slot = this.make.graphics({add:false});
     slot.lineStyle(2,0x6366f1,0.8); slot.strokeRoundedRect(0,0,100,130,12);
     slot.fillStyle(0x1e1b4b,0.6); slot.fillRoundedRect(0,0,100,130,12);
     slot.generateTexture('slot',100,130); slot.destroy();
 
-    // Частицы
     const pt = this.make.graphics({add:false});
     pt.fillStyle(0xef4444); pt.fillCircle(4,4,4);
     pt.generateTexture('spark',8,8); pt.destroy();
@@ -82,7 +80,6 @@ class ArenaScene extends Phaser.Scene {
   create() {
     this.fogGraphics   = null;
     this.bossGif       = null;
-    this.bossHpBar     = null;
     this.slotObjs      = [];
     this.dmgTexts      = [];
 
@@ -97,7 +94,6 @@ class ArenaScene extends Phaser.Scene {
     connectWS();
   }
 
-  // ── Фон ────────────────────────────────────────────────────
   drawBackground() {
     for (let x=0; x<W; x+=64)
       for (let y=0; y<H; y+=64)
@@ -110,18 +106,14 @@ class ArenaScene extends Phaser.Scene {
     vg.fillRect(0,H*0.85,W,H*0.15);
   }
 
-  // ── Босс (GIF) ──────────────────────────────────────────
   drawBoss() {
     const bx = W/2, by = H*0.28;
 
-    // Аура под боссом
     this.bossAura = this.add.graphics();
     this.updateBossAura();
 
-    // GIF босс — 384x384, масштабируем до ~160px
     this.bossGif = this.add.rexGif(bx, by, 'boss_gif').setScale(0.42).setOrigin(0.5, 0.5);
 
-    // HP бар
     const barW = 200, barH = 18;
     const barX = bx - barW/2, barY = by + 100;
     this.add.graphics().fillStyle(0x1f2937).fillRoundedRect(barX-2,barY-2,barW+4,barH+4,6);
@@ -158,7 +150,6 @@ class ArenaScene extends Phaser.Scene {
   }
 
   startBossPulse() {
-    // Лёгкий пульс ауры вместо спрайта — GIF сам анимируется
     this.tweens.add({
       targets: this.bossGif,
       scaleX: 0.45, scaleY: 0.39,
@@ -166,7 +157,6 @@ class ArenaScene extends Phaser.Scene {
     });
   }
 
-  // ── Слоты ────────────────────────────────────────────────
   drawSlots() {
     const slotW=100, slotH=130;
     const totalW = slotW*3 + 20*2;
@@ -221,7 +211,6 @@ class ArenaScene extends Phaser.Scene {
     }
   }
 
-  // ── Туман ────────────────────────────────────────────────
   drawFog() {
     this.fogGraphics = this.add.graphics().setDepth(50);
     this.updateFog();
@@ -259,7 +248,6 @@ class ArenaScene extends Phaser.Scene {
     });
   }
 
-  // ── HUD ──────────────────────────────────────────────────────
   drawHUD() {
     this.add.text(W/2, 18, '⚔️  BOSS ARENA', {
       fontSize:'18px', fill:'#ef4444', fontFamily:'monospace',
@@ -275,7 +263,6 @@ class ArenaScene extends Phaser.Scene {
     }).setDepth(60);
   }
 
-  // ── Синхронизация ─────────────────────────────────────────
   syncState() {
     this.connTxt?.setStyle({fill: ws?.readyState===1 ? '#22c55e':'#ef4444'});
     this.slotTxt?.setText(mySlot>=0 ? `Слот ${mySlot+1}` : 'Ожидание...');
@@ -307,7 +294,6 @@ class ArenaScene extends Phaser.Scene {
     }
   }
 
-  // ── Атака босса ─────────────────────────────────────────
   startAutoAttack() {
     this.time.addEvent({
       delay: 2500,
@@ -351,20 +337,12 @@ class ArenaScene extends Phaser.Scene {
   }
 }
 
-// ─── Запуск ───────────────────────────────────────────────
 const game = new Phaser.Game({
   type: Phaser.AUTO,
   width: W,
   height: H,
   parent: 'game-container',
   transparent: true,
-  plugins: {
-    global: [{
-      key: 'rexGifFile',
-      plugin: RexGifFilePlugin,
-      start: true
-    }]
-  },
   physics: { default:'arcade', arcade:{gravity:{y:0},debug:false} },
   scene: [ArenaScene]
 });
