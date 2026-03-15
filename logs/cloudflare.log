@@ -40,3 +40,150 @@
 2026-03-15T20:47:13Z INF ICMP proxy will use fd58:baa6:dead::1 in zone AmneziaVPN as source for IPv6
 2026-03-15T20:47:13Z INF Starting metrics server on 127.0.0.1:20241/metrics
 2026-03-15T20:47:14Z INF Registered tunnel connection connIndex=0 connection=bc12d302-f18f-4d01-9333-64b8566f9d2d event=0 ip=198.41.200.23 location=fra06 protocol=quic
+2026-03-15T21:00:37Z INF Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps
+2026-03-15T21:00:37Z INF Requesting new quick Tunnel on trycloudflare.com...
+2026-03-15T21:00:42Z INF +--------------------------------------------------------------------------------------------+
+2026-03-15T21:00:42Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |
+2026-03-15T21:00:42Z INF |  https://beaver-downtown-rendered-jackets.trycloudflare.com                                |
+2026-03-15T21:00:42Z INF +--------------------------------------------------------------------------------------------+
+2026-03-15T21:00:42Z INF Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp]
+2026-03-15T21:00:42Z INF Version 2026.3.0 (Checksum 59b12880b24af581cf5b1013db601c7d843b9b097e9c78aa5957c7f39f741885)
+2026-03-15T21:00:42Z INF GOOS: windows, GOVersion: go1.24.13, GoArch: amd64
+2026-03-15T21:00:42Z INF Settings: map[ha-connections:1 protocol:quic url:http://localhost:8000]
+2026-03-15T21:00:42Z INF cloudflared will not automatically update on Windows systems.
+2026-03-15T21:00:42Z INF Generated Connector ID: 107f5795-b7b7-4d68-8afd-2adcbcd4f1e8
+2026-03-15T21:00:42Z INF Initial protocol quic
+2026-03-15T21:00:42Z INF ICMP proxy will use 10.8.1.23 as source for IPv4
+2026-03-15T21:00:42Z INF ICMP proxy will use fd58:baa6:dead::1 in zone AmneziaVPN as source for IPv6
+2026-03-15T21:00:43Z INF cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool
+2026-03-15T21:00:43Z INF ICMP proxy will use 10.8.1.23 as source for IPv4
+2026-03-15T21:00:43Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.192.227
+2026-03-15T21:00:43Z INF ICMP proxy will use fd58:baa6:dead::1 in zone AmneziaVPN as source for IPv6
+2026-03-15T21:00:43Z INF Starting metrics server on 127.0.0.1:20241/metrics
+2026-03-15T21:00:43Z INF Registered tunnel connection connIndex=0 connection=b94707d9-32d7-4830-9e62-16056a04b8f6 event=0 ip=198.41.192.227 location=fra03 protocol=quic
+2026-03-15T21:09:01Z INF Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps
+2026-03-15T21:09:01Z INF Requesting new quick Tunnel on trycloudflare.com...
+2026-03-15T21:09:06Z INF +--------------------------------------------------------------------------------------------+
+2026-03-15T21:09:06Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |
+2026-03-15T21:09:06Z INF |  https://tuesday-glory-feet-herald.trycloudflare.com                                       |
+2026-03-15T21:09:06Z INF +--------------------------------------------------------------------------------------------+
+2026-03-15T21:09:06Z INF Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp]
+2026-03-15T21:09:06Z INF Version 2026.3.0 (Checksum 59b12880b24af581cf5b1013db601c7d843b9b097e9c78aa5957c7f39f741885)
+2026-03-15T21:09:06Z INF GOOS: windows, GOVersion: go1.24.13, GoArch: amd64
+2026-03-15T21:09:06Z INF Settings: map[ha-connections:1 protocol:quic url:http://localhost:8000]
+2026-03-15T21:09:06Z INF cloudflared will not automatically update on Windows systems.
+2026-03-15T21:09:06Z INF Generated Connector ID: 00bdb3fb-a2d1-4f27-8ce8-2a63bf7bdad6
+2026-03-15T21:09:06Z INF Initial protocol quic
+2026-03-15T21:09:06Z INF ICMP proxy will use 10.8.1.23 as source for IPv4
+2026-03-15T21:09:06Z INF ICMP proxy will use fd58:baa6:dead::1 in zone AmneziaVPN as source for IPv6
+2026-03-15T21:09:06Z INF cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool
+2026-03-15T21:09:06Z INF ICMP proxy will use 10.8.1.23 as source for IPv4
+2026-03-15T21:09:06Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.192.77
+2026-03-15T21:09:06Z INF ICMP proxy will use fd58:baa6:dead::1 in zone AmneziaVPN as source for IPv6
+2026-03-15T21:09:06Z INF Starting metrics server on 127.0.0.1:20241/metrics
+2026-03-15T21:09:07Z INF Registered tunnel connection connIndex=0 connection=530a30cc-7066-405a-b17a-ddba83b612b4 event=0 ip=198.41.192.77 location=fra08 protocol=quic
+2026-03-15T21:10:00Z INF Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps
+2026-03-15T21:10:00Z INF Requesting new quick Tunnel on trycloudflare.com...
+2026-03-15T21:10:10Z INF +--------------------------------------------------------------------------------------------+
+2026-03-15T21:10:10Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |
+2026-03-15T21:10:10Z INF |  https://batch-referrals-blair-explained.trycloudflare.com                                 |
+2026-03-15T21:10:10Z INF +--------------------------------------------------------------------------------------------+
+2026-03-15T21:10:10Z INF Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp]
+2026-03-15T21:10:10Z INF Version 2026.3.0 (Checksum 59b12880b24af581cf5b1013db601c7d843b9b097e9c78aa5957c7f39f741885)
+2026-03-15T21:10:10Z INF GOOS: windows, GOVersion: go1.24.13, GoArch: amd64
+2026-03-15T21:10:10Z INF Settings: map[ha-connections:1 protocol:quic url:http://localhost:8000]
+2026-03-15T21:10:10Z INF cloudflared will not automatically update on Windows systems.
+2026-03-15T21:10:10Z INF Generated Connector ID: f24ed9b5-bb09-43c8-8dfb-16b974062f11
+2026-03-15T21:10:10Z INF Initial protocol quic
+2026-03-15T21:10:10Z INF ICMP proxy will use 10.8.1.23 as source for IPv4
+2026-03-15T21:10:10Z INF ICMP proxy will use fd58:baa6:dead::1 in zone AmneziaVPN as source for IPv6
+2026-03-15T21:10:10Z INF cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool
+2026-03-15T21:10:10Z INF ICMP proxy will use 10.8.1.23 as source for IPv4
+2026-03-15T21:10:10Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.200.13
+2026-03-15T21:10:10Z INF ICMP proxy will use fd58:baa6:dead::1 in zone AmneziaVPN as source for IPv6
+2026-03-15T21:10:10Z INF Starting metrics server on 127.0.0.1:20241/metrics
+2026-03-15T21:10:11Z INF Registered tunnel connection connIndex=0 connection=5522e997-c7d9-4228-8861-76ee667fd52c event=0 ip=198.41.200.13 location=fra12 protocol=quic
+2026-03-15T21:12:53Z INF Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps
+2026-03-15T21:12:53Z INF Requesting new quick Tunnel on trycloudflare.com...
+2026-03-15T21:12:57Z INF +--------------------------------------------------------------------------------------------+
+2026-03-15T21:12:57Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |
+2026-03-15T21:12:57Z INF |  https://tsunami-rise-restructuring-ways.trycloudflare.com                                 |
+2026-03-15T21:12:57Z INF +--------------------------------------------------------------------------------------------+
+2026-03-15T21:12:57Z INF Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp]
+2026-03-15T21:12:57Z INF Version 2026.3.0 (Checksum 59b12880b24af581cf5b1013db601c7d843b9b097e9c78aa5957c7f39f741885)
+2026-03-15T21:12:57Z INF GOOS: windows, GOVersion: go1.24.13, GoArch: amd64
+2026-03-15T21:12:57Z INF Settings: map[ha-connections:1 protocol:quic url:http://localhost:8000]
+2026-03-15T21:12:57Z INF cloudflared will not automatically update on Windows systems.
+2026-03-15T21:12:57Z INF Generated Connector ID: af516356-c23d-42bd-a94a-58efd09e3258
+2026-03-15T21:12:57Z INF Initial protocol quic
+2026-03-15T21:12:57Z INF ICMP proxy will use 10.8.1.23 as source for IPv4
+2026-03-15T21:12:57Z INF ICMP proxy will use fd58:baa6:dead::1 in zone AmneziaVPN as source for IPv6
+2026-03-15T21:12:57Z INF cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool
+2026-03-15T21:12:57Z INF ICMP proxy will use 10.8.1.23 as source for IPv4
+2026-03-15T21:12:57Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.192.107
+2026-03-15T21:12:57Z INF ICMP proxy will use fd58:baa6:dead::1 in zone AmneziaVPN as source for IPv6
+2026-03-15T21:12:57Z INF Starting metrics server on 127.0.0.1:20241/metrics
+2026-03-15T21:12:57Z INF Registered tunnel connection connIndex=0 connection=4fa2735b-50d5-40f1-8a49-ef597d51c2d8 event=0 ip=198.41.192.107 location=fra08 protocol=quic
+2026-03-15T21:20:14Z INF Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps
+2026-03-15T21:20:14Z INF Requesting new quick Tunnel on trycloudflare.com...
+2026-03-15T21:20:20Z INF +--------------------------------------------------------------------------------------------+
+2026-03-15T21:20:20Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |
+2026-03-15T21:20:20Z INF |  https://timeline-attorney-detector-texas.trycloudflare.com                                |
+2026-03-15T21:20:20Z INF +--------------------------------------------------------------------------------------------+
+2026-03-15T21:20:20Z INF Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp]
+2026-03-15T21:20:20Z INF Version 2026.3.0 (Checksum 59b12880b24af581cf5b1013db601c7d843b9b097e9c78aa5957c7f39f741885)
+2026-03-15T21:20:20Z INF GOOS: windows, GOVersion: go1.24.13, GoArch: amd64
+2026-03-15T21:20:20Z INF Settings: map[ha-connections:1 protocol:quic url:http://localhost:8000]
+2026-03-15T21:20:20Z INF cloudflared will not automatically update on Windows systems.
+2026-03-15T21:20:20Z INF Generated Connector ID: 2ec355ce-3091-4d8b-a478-ee76c19495b2
+2026-03-15T21:20:20Z INF Initial protocol quic
+2026-03-15T21:20:20Z INF ICMP proxy will use 10.8.1.23 as source for IPv4
+2026-03-15T21:20:20Z INF ICMP proxy will use fd58:baa6:dead::1 in zone AmneziaVPN as source for IPv6
+2026-03-15T21:20:20Z INF cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool
+2026-03-15T21:20:20Z INF ICMP proxy will use 10.8.1.23 as source for IPv4
+2026-03-15T21:20:20Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.192.7
+2026-03-15T21:20:20Z INF ICMP proxy will use fd58:baa6:dead::1 in zone AmneziaVPN as source for IPv6
+2026-03-15T21:20:20Z INF Starting metrics server on 127.0.0.1:20241/metrics
+2026-03-15T21:20:20Z INF Registered tunnel connection connIndex=0 connection=a5b86c6a-7e75-464d-9697-04848cf1ea5d event=0 ip=198.41.192.7 location=fra03 protocol=quic
+2026-03-15T21:41:02Z INF Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps
+2026-03-15T21:41:02Z INF Requesting new quick Tunnel on trycloudflare.com...
+2026-03-15T21:41:06Z INF +--------------------------------------------------------------------------------------------+
+2026-03-15T21:41:06Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |
+2026-03-15T21:41:06Z INF |  https://growth-pad-validity-len.trycloudflare.com                                         |
+2026-03-15T21:41:06Z INF +--------------------------------------------------------------------------------------------+
+2026-03-15T21:41:06Z INF Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp]
+2026-03-15T21:41:06Z INF Version 2026.3.0 (Checksum 59b12880b24af581cf5b1013db601c7d843b9b097e9c78aa5957c7f39f741885)
+2026-03-15T21:41:06Z INF GOOS: windows, GOVersion: go1.24.13, GoArch: amd64
+2026-03-15T21:41:06Z INF Settings: map[ha-connections:1 protocol:quic url:http://localhost:8000]
+2026-03-15T21:41:06Z INF cloudflared will not automatically update on Windows systems.
+2026-03-15T21:41:06Z INF Generated Connector ID: 6a424d55-5fd3-40fd-b2a8-e0e7d616e61b
+2026-03-15T21:41:06Z INF Initial protocol quic
+2026-03-15T21:41:06Z INF ICMP proxy will use 10.8.1.23 as source for IPv4
+2026-03-15T21:41:06Z INF ICMP proxy will use fd58:baa6:dead::1 in zone AmneziaVPN as source for IPv6
+2026-03-15T21:41:06Z INF cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool
+2026-03-15T21:41:06Z INF ICMP proxy will use 10.8.1.23 as source for IPv4
+2026-03-15T21:41:06Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.192.67
+2026-03-15T21:41:06Z INF ICMP proxy will use fd58:baa6:dead::1 in zone AmneziaVPN as source for IPv6
+2026-03-15T21:41:06Z INF Starting metrics server on 127.0.0.1:20241/metrics
+2026-03-15T21:41:06Z INF Registered tunnel connection connIndex=0 connection=cfa7c392-b315-453d-9efc-795cd5cd0612 event=0 ip=198.41.192.67 location=fra08 protocol=quic
+2026-03-15T21:49:15Z INF Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps
+2026-03-15T21:49:15Z INF Requesting new quick Tunnel on trycloudflare.com...
+2026-03-15T21:49:20Z INF +--------------------------------------------------------------------------------------------+
+2026-03-15T21:49:20Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |
+2026-03-15T21:49:20Z INF |  https://skin-kept-anchor-suit.trycloudflare.com                                           |
+2026-03-15T21:49:20Z INF +--------------------------------------------------------------------------------------------+
+2026-03-15T21:49:20Z INF Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp]
+2026-03-15T21:49:20Z INF Version 2026.3.0 (Checksum 59b12880b24af581cf5b1013db601c7d843b9b097e9c78aa5957c7f39f741885)
+2026-03-15T21:49:20Z INF GOOS: windows, GOVersion: go1.24.13, GoArch: amd64
+2026-03-15T21:49:20Z INF Settings: map[ha-connections:1 protocol:quic url:http://localhost:8000]
+2026-03-15T21:49:20Z INF cloudflared will not automatically update on Windows systems.
+2026-03-15T21:49:20Z INF Generated Connector ID: 63ba413d-c176-406a-a4f7-93849258782b
+2026-03-15T21:49:20Z INF Initial protocol quic
+2026-03-15T21:49:20Z INF ICMP proxy will use 10.8.1.23 as source for IPv4
+2026-03-15T21:49:20Z INF ICMP proxy will use fd58:baa6:dead::1 in zone AmneziaVPN as source for IPv6
+2026-03-15T21:49:20Z INF cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool
+2026-03-15T21:49:20Z INF ICMP proxy will use 10.8.1.23 as source for IPv4
+2026-03-15T21:49:20Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.192.7
+2026-03-15T21:49:20Z INF ICMP proxy will use fd58:baa6:dead::1 in zone AmneziaVPN as source for IPv6
+2026-03-15T21:49:20Z INF Starting metrics server on 127.0.0.1:20241/metrics
+2026-03-15T21:49:21Z INF Registered tunnel connection connIndex=0 connection=4f13a337-7c72-4f59-bde6-92fcc8f809d2 event=0 ip=198.41.192.7 location=fra03 protocol=quic

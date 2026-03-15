@@ -66,3 +66,151 @@ INFO:     38.180.229.62:0 - "GET /leaderboard HTTP/1.1" 200 OK
 INFO:     38.180.229.62:0 - "GET /leaderboard HTTP/1.1" 200 OK
 INFO:     connection closed
 INFO:     connection closed
+INFO:     Started server process [10812]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+[SERVER] Starting up...
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET / HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /static/style.css HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /static/game.js HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     ('38.180.229.62', 0) - "WebSocket /ws?tg_id=800324475&first_name=username" [accepted]
+INFO:     connection open
+[WS] Player connected: username (800324475)
+[DB] Tables ready
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET /leaderboard HTTP/1.1" 200 OK
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET /leaderboard HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     Started server process [20176]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+[SERVER] Starting up...
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET / HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /static/style.css HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /static/game.js HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     ('38.180.229.62', 0) - "WebSocket /ws?tg_id=0&first_name=Guest" [accepted]
+INFO:     connection open
+[WS] Player connected: Guest (0)
+[DB] Tables ready
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET /leaderboard HTTP/1.1" 200 OK
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET /leaderboard HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET / HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     ('38.180.229.62', 0) - "WebSocket /ws?tg_id=0&first_name=Guest" [accepted]
+INFO:     connection open
+[WS] Player 0 disconnected
+[WS] Player connected: Guest (0)
+[DB] Tables ready
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET /leaderboard HTTP/1.1" 200 OK
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET /leaderboard HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     Started server process [6280]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+[SERVER] Starting up...
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET / HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /static/style.css HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /static/game.js HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     ('38.180.229.62', 0) - "WebSocket /ws?tg_id=0&first_name=Guest" [accepted]
+INFO:     connection open
+[WS] Player connected: Guest (0)
+[DB] Tables ready
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET /leaderboard HTTP/1.1" 200 OK
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET /leaderboard HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     Started server process [19204]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+[SERVER] Starting up...
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET / HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /static/game.js HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /static/style.css HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     ('38.180.229.62', 0) - "WebSocket /ws?tg_id=0&first_name=Guest" [accepted]
+INFO:     connection open
+[WS] Player connected: Guest (0)
+[DB] Tables ready
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET /leaderboard HTTP/1.1" 200 OK
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET /leaderboard HTTP/1.1" 200 OK
+INFO:     18.97.9.101:0 - "GET /robots.txt HTTP/1.1" 404 Not Found
+INFO:     18.97.43.82:0 - "GET / HTTP/1.1" 200 OK
+INFO:     18.97.9.102:0 - "GET / HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /static/phaser-demo.html HTTP/1.1" 200 OK
+INFO:     connection closed
+[WS] Player 0 disconnected
+INFO:     38.180.229.62:0 - "GET /static/phaser-demo.html HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     Started server process [16228]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+[SERVER] Starting up...
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET / HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /static/arena.js HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     ('38.180.229.62', 0) - "WebSocket /ws?tg_id=84002&first_name=Hero" [accepted]
+INFO:     connection open
+[WS] Player connected: Hero (84002)
+INFO:     38.180.229.62:0 - "GET / HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /static/arena.js HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     ('38.180.229.62', 0) - "WebSocket /ws?tg_id=1518&first_name=Hero" [accepted]
+INFO:     connection open
+[WS] Player connected: Hero (1518)
+INFO:     149.154.161.251:0 - "GET / HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET / HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /static/arena.js HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     ('38.180.229.62', 0) - "WebSocket /ws?tg_id=57685&first_name=Hero" [accepted]
+INFO:     connection open
+INFO:     connection closed
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Started server process [19232]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+[SERVER] Starting up...
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET / HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /static/arena.js HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     ('38.180.229.62', 0) - "WebSocket /ws?tg_id=41598&first_name=Hero" [accepted]
+INFO:     connection open
+INFO:     connection closed
+INFO:     Started server process [21904]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+[SERVER] Starting up...
+[DB] Tables ready
+INFO:     38.180.229.62:0 - "GET / HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /static/arena.js HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     38.180.229.62:0 - "GET / HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /static/arena.js HTTP/1.1" 304 Not Modified
+INFO:     38.180.229.62:0 - "GET / HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /static/arena.js HTTP/1.1" 304 Not Modified
+INFO:     38.180.229.62:0 - "GET / HTTP/1.1" 200 OK
+INFO:     38.180.229.62:0 - "GET /static/arena.js HTTP/1.1" 304 Not Modified
