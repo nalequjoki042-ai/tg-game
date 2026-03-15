@@ -10,6 +10,8 @@ import urllib.parse
 import json
 from datetime import datetime
 
+APP_VERSION = "0.1.0"
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 LOGS_DIR = os.path.join(BASE_DIR, "logs")
 if not os.path.exists(LOGS_DIR):
@@ -34,7 +36,6 @@ def load_env() -> dict:
 
 def update_telegram_bot_url(bot_token: str, new_url: str) -> str:
     """Update the Mini App button URL via Telegram Bot API."""
-    # 1. Update Menu Button (opens Mini App when user taps the button next to input)
     payload = json.dumps({
         "menu_button": {
             "type": "web_app",
@@ -61,7 +62,7 @@ def update_telegram_bot_url(bot_token: str, new_url: str) -> str:
 class ProcessManager(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Панель управления TG Игрой")
+        self.title(f"Панель управления TG Игрой  |  v{APP_VERSION}")
         self.geometry("900x650")
         self.processes = {}
         self.queues = {}
@@ -96,6 +97,10 @@ class ProcessManager(tk.Tk):
         self.status_var = tk.StringVar(value="Остановлено")
         status_label = ttk.Label(top_frame, textvariable=self.status_var, font=('Arial', 10, 'bold'))
         status_label.pack(side=tk.RIGHT, padx=10)
+
+        # Version badge in top-right
+        version_label = ttk.Label(top_frame, text=f"v{APP_VERSION}", foreground="gray", font=('Arial', 9))
+        version_label.pack(side=tk.RIGHT, padx=5)
 
         self.notebook = ttk.Notebook(self)
         self.notebook.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
@@ -165,6 +170,7 @@ class ProcessManager(tk.Tk):
                 startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 
                 try:
+:
                     p = subprocess.Popen(
                         info['cmd'],
                         stdout=subprocess.PIPE,
@@ -222,7 +228,6 @@ class ProcessManager(tk.Tk):
                             self.url_label.config(text=f"URL: {url} (нажмите чтобы скопировать)")
                             self.update_env_url(url)
                             self.log("cloudflare", f"\n✅ URL ОБНОВЛЕН: {url}\n")
-                            # Auto-update Telegram bot button
                             threading.Thread(
                                 target=self.notify_telegram,
                                 args=(url,),
@@ -239,7 +244,6 @@ class ProcessManager(tk.Tk):
             return
         result = update_telegram_bot_url(bot_token, new_url)
         self.log("cloudflare", result + "\n")
-        # Restart bot so it picks up new APP_URL from .env
         self.restart_bot()
 
     def restart_bot(self):
@@ -250,7 +254,6 @@ class ProcessManager(tk.Tk):
                 subprocess.run(['taskkill', '/F', '/T', '/PID', str(bot_proc.pid)], capture_output=True)
             except:
                 pass
-        # Small delay then restart
         import time
         time.sleep(1)
         info = self.tabs["bot"]
