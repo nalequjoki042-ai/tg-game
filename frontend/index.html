@@ -2,32 +2,18 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TG Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Arena</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <link rel="stylesheet" href="/static/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#000; overflow:hidden; }
+    #game-container { position:fixed; top:0; left:0; }
+  </style>
 </head>
 <body>
-  <div id="app">
-    <div id="status-bar">
-      <span id="tg-user">Loading...</span>
-      <span id="ws-status" class="badge badge--disconnected">&#9679; WS</span>
-    </div>
-
-    <div id="game-area">
-      <div id="score-block">
-        <div id="score-label">🏆 Твой счёт</div>
-        <div id="score-value">0</div>
-      </div>
-
-      <div id="leaderboard">
-        <div class="lb-title">📊 Лидерборд</div>
-        <ol id="lb-list"><li>Загрузка...</li></ol>
-      </div>
-
-      <button id="btn-ping">⚡ Ping Server</button>
-    </div>
-  </div>
-  <script src="/static/game.js"></script>
+<div id="game-container"></div>
+<script src="/static/arena.js"></script>
 </body>
 </html>
