@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phaser Demo — Всё в одном</title>
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0a0a1a; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
+    #info { color: #aaa; font-family: monospace; font-size: 13px; margin-top: 10px; text-align: center; }
+    #info span { color: #a78bfa; }
+  </style>
+</head>
+<body>
+<div id="game-container"></div>
+<div id="info">
+  <span>WASD / стрелки</span> — движение &nbsp;|
+  <span>Пробел</span> — прыжок &nbsp;|
+  <span>мышь</span> — стрельба &nbsp;|
+  <span>тач на экран</span> — мобильное управление
+</div>
+
+<script>
+const W = Math.min(window.innerWidth, 480);
+const H = Math.min(window.innerHeight - 40, 700);
+
+// ============================================================
+// SCENE: Preload
+// ============================================================
+class PreloadScene extends Phaser.Scene {
+  constructor() { super('Preload'); }
+
+  create() {
+    // Генерируем все текстуры процедурно — без PNG-файлов
+    // Игрок
+    const pg = this.make.graphics({x:0,y:0,add:false});
+    pg.fillStyle(0x6366f1); pg.fillRect(0,0,32,48);
+    pg.fillStyle(0xfbbf24); pg.fillCircle(16,12,10);
+    pg.fillStyle(0x6366f1); pg.fillRect(8,22,16,20);
+    pg.fillStyle(0xa5b4fc); pg.fillRect(0,26,8,16); pg.fillRect(24,26,8,16);
+    pg.fillStyle(0x4f46e5); pg.fillRect(4,42,12,6); pg.fillRect(18,42,12,6);
+    pg.generateTexture('player', 32, 48); pg.destroy();
+
+    // Монета
+    const cg = this.make.graphics({x:0,y:0,add:false});
+    cg.fillStyle(0xfbbf24); cg.fillCircle(12,12,12);
+    cg.fillStyle(0xf59e0b); cg.fillCircle(12,12,8);
+    cg.generateTexture('coin', 24, 24); cg.destroy();
+
+    // Платформа
+    const pl = this.make.graphics({x:0,y:0,add:false});
+    pl.fillStyle(0x22c55e); pl.fillRect(0,0,128,20);
+    pl.generateTexture('platform', 128, 20); pl.destroy();
+
+    // Земля
+    const gr = this.make.graphics({x:0,y:0,add:false});
+    gr.fillStyle(0x16a34a); gr.fillRect(0,0,W,24);
+    gr.generateTexture('ground', W, 24); gr.destroy();
+
+    // Пуля
+    const bg = this.make.graphics({x:0,y:0,add:false});
+    bg.fillStyle(0xef4444); bg.fillCircle(6,6,6);
+    bg.generateTexture('bullet', 12, 12); bg.destroy();
+
+    // Враг
+    const eg = this.make.graphics({x:0,y:0,add:false});
+    eg.fillStyle(0xef4444); eg.fillRect(0,0,36,36);
+    eg.fillStyle(0xfef08a); eg.fillCircle(10,10,6); eg.fillCircle(26,10,6);
+    eg.fillStyle(0x000); eg.fillRect(6,20,24,6);
+    eg.generateTexture('enemy', 36, 36); eg.destroy();
+
+    // Частицы звездочки
+    const sg = this.make.graphics({x:0,y:0,add:false});
+    sg.fillStyle(0xffffff); sg.fillCircle(3,3,3);
+    sg.generateTexture('star', 6, 6); sg.destroy();
+
+    this.scene.start('Game');
+  }
+}
+
+// ============================================================
+// SCENE: Game
+// ============================================================
+class GameScene extends Phaser.Scene {
+  constructor() { super('Game'); }
+
+  create() {
+    this.score = 0;
+    this.lives = 3;
+    this.gameOver = false;
+
+    // Фон — звёздное небо (particle-like)
+    this.bg = this.add.graphics();
+    this.bg.fillGradientStyle(0x0a0a2e, 0x0a0a2e, 0x1a1a4e, 0x1a1a4e, 1);
+    this.bg.fillRect(0, 0, W, H);
+
+    this.stars = [];
+    for (let i = 0; i < 60; i++) {
+      const s = this.add.image(
+        Phaser.Math.Between(0, W),
+        Phaser.Math.Between(0, H),
+        'star'
+      ).setAlpha(Math.random() * 0.8 + 0.2);
+      this.stars.push(s);
+    }
+
+    // Платформы
+    this.platforms = this.physics.add.staticGroup();
+    this.platforms.create(W/2, H - 12, 'ground').setScale(1, 1).refreshBody();
+    [[W*0.2, H-160],[W*0.7, H-260],[W*0.4, H-360],[W*0.8, H-420],[W*0.15, H-480]]
+      .forEach(([x,y]) => this.platforms.create(x, y, 'platform'));
+
+    // Игрок
+    this.player = this.physics.add.sprite(80, H - 100, 'player');
+    this.player.setBounce(0.1).setCollideWorldBounds(true);
+    this.physics.add.collider(this.player, this.platforms);
+
+    // Анимация — мигание (скейл по X)
+    this.tweens.add({
+      targets: this.player,
+      scaleX: { from: 1, to: -1 },
+      ease: 'Stepped',
+      duration: 0,
+      yoyo: false,
+      repeat: -1,
+      repeatDelay: 2000
+    });
+
+    // Монеты
+    this.coins = this.physics.add.group();
+    this.spawnCoins();
+    this.physics.add.collider(this.coins, this.platforms);
+    this.physics.add.overlap(this.player, this.coins, this.collectCoin, null, this);
+
+    // Враги
+    this.enemies = this.physics.add.group();
+    this.spawnEnemy();
+    this.physics.add.collider(this.enemies, this.platforms);
+    this.physics.add.overlap(this.player, this.enemies, this.hitEnemy, null, this);
+
+    // Пули
+    this.bullets = this.physics.add.group();
+    this.physics.add.overlap(this.bullets, this.enemies, this.bulletHitEnemy, null, this);
+
+    // Партиклы — эффект сбора монет
+    this.particles = this.add.particles(0, 0, 'coin', {
+      speed: { min: 50, max: 150 },
+      scale: { start: 0.5, end: 0 },
+      lifespan: 400,
+      quantity: 6,
+      emitting: false
+    });
+
+    // Управление — клавиатура
+    this.cursors = this.input.keyboard.createCursorKeys();
+    this.wasd = this.input.keyboard.addKeys('W,A,S,D');
+    this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+    // Управление — тач (мобильное)
+    this.touchLeft = false; this.touchRight = false; this.touchJump = false;
+    this.setupTouchControls();
+
+    // Стрельба по клику мыши
+    this.input.on('pointerdown', (p) => { if (!this.gameOver) this.shoot(p); });
+
+    // HUD
+    this.scoreTxt = this.add.text(12, 12, 'Счёт: 0', {
+      fontSize: '20px', fill: '#ffffff', fontFamily: 'monospace',
+      stroke: '#000', strokeThickness: 4
+    }).setDepth(10);
+    this.livesTxt = this.add.text(W - 12, 12, '♥♥♥', {
+      fontSize: '20px', fill: '#ef4444', fontFamily: 'monospace'
+    }).setOrigin(1, 0).setDepth(10);
+    this.comboTxt = this.add.text(W/2, 50, '', {
+      fontSize: '28px', fill: '#fbbf24', fontFamily: 'monospace',
+      stroke: '#000', strokeThickness: 4
+    }).setOrigin(0.5).setDepth(10).setAlpha(0);
+
+    this.combo = 0;
+    this.lastCoinTime = 0;
+
+    // Таймер — спавним врагов каждые 5 сек
+    this.time.addEvent({ delay: 5000, callback: this.spawnEnemy, callbackScope: this, loop: true });
+    this.time.addEvent({ delay: 8000, callback: this.spawnCoins, callbackScope: this, loop: true });
+
+    // Камера следит за игроком
+    this.cameras.main.setBounds(0, 0, W, H);
+  }
+
+  setupTouchControls() {
+    const btnStyle = 'position:absolute;bottom:20px;width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.3);color:white;font-size:24px;display:flex;align-items:center;justify-content:center;user-select:none;';
+    const left = document.createElement('div');
+    left.innerHTML = '◄'; left.style.cssText = btnStyle + 'left:20px;';
+    const right = document.createElement('div');
+    right.innerHTML = '►'; right.style.cssText = btnStyle + 'left:100px;';
+    const jump = document.createElement('div');
+    jump.innerHTML = '▲'; jump.style.cssText = btnStyle + 'right:20px;';
+    [left,right,jump].forEach(b => { b.style.display='flex'; document.body.appendChild(b); });
+    left.addEventListener('touchstart',  e => { e.preventDefault(); this.touchLeft=true;  }, {passive:false});
+    left.addEventListener('touchend',    ()  => this.touchLeft=false);
+    right.addEventListener('touchstart', e => { e.preventDefault(); this.touchRight=true; }, {passive:false});
+    right.addEventListener('touchend',   ()  => this.touchRight=false);
+    jump.addEventListener('touchstart',  e => { e.preventDefault(); this.touchJump=true;  }, {passive:false});
+    jump.addEventListener('touchend',    ()  => this.touchJump=false);
+  }
+
+  spawnCoins() {
+    for (let i = 0; i < 5; i++) {
+      const x = Phaser.Math.Between(40, W-40);
+      const y = Phaser.Math.Between(80, H-100);
+      const c = this.coins.create(x, y, 'coin');
+      c.setBounceY(0.4);
+      this.tweens.add({ targets: c, y: c.y - 10, duration: 800, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    }
+  }
+
+  spawnEnemy() {
+    const x = Phaser.Math.Between(0, 1) === 0 ? 20 : W-20;
+    const e = this.enemies.create(x, H-80, 'enemy');
+    e.setVelocityX(x < W/2 ? 120 : -120);
+    e.setBounce(0.3);
+    e.setCollideWorldBounds(true);
+    e.hp = 2;
+  }
+
+  collectCoin(player, coin) {
+    const now = this.time.now;
+    this.combo = (now - this.lastCoinTime < 1500) ? this.combo + 1 : 1;
+    this.lastCoinTime = now;
+
+    const pts = this.combo >= 3 ? 20 : 10;
+    this.score += pts;
+    this.scoreTxt.setText('Счёт: ' + this.score);
+
+    // Партиклы
+    this.particles.emitParticleAt(coin.x, coin.y);
+    coin.destroy();
+
+    // Комбо
+    if (this.combo >= 3) {
+      this.comboTxt.setText(`🔥 COMBO x${this.combo}! +${pts}`).setAlpha(1);
+      this.tweens.add({ targets: this.comboTxt, alpha: 0, duration: 1000, delay: 500 });
+      this.cameras.main.shake(150, 0.008);
+    }
+
+    // Текст попап-ап
+    const popup = this.add.text(coin.x, coin.y, `+${pts}`, {
+      fontSize: '18px', fill: '#fbbf24', fontFamily: 'monospace', stroke:'#000', strokeThickness:3
+    }).setDepth(20);
+    this.tweens.add({ targets: popup, y: popup.y-40, alpha: 0, duration: 700, onComplete: () => popup.destroy() });
+  }
+
+  hitEnemy(player, enemy) {
+    if (enemy.getData('invincible')) return;
+    this.lives--;
+    this.livesTxt.setText('♥'.repeat(Math.max(0, this.lives)));
+    this.cameras.main.shake(200, 0.015);
+    this.cameras.main.flash(300, 255, 0, 0);
+    enemy.setData('invincible', true);
+    this.time.delayedCall(1000, () => enemy.setData('invincible', false));
+    if (this.lives <= 0) this.endGame();
+  }
+
+  shoot(pointer) {
+    const b = this.bullets.create(this.player.x, this.player.y, 'bullet');
+    const angle = Phaser.Math.Angle.Between(this.player.x, this.player.y, pointer.x, pointer.y);
+    this.physics.velocityFromAngle(Phaser.Math.RadToDeg(angle), 500, b.body.velocity);
+    b.setCollideWorldBounds(true);
+    b.setBounce(0);
+    this.time.delayedCall(2000, () => { if (b.active) b.destroy(); });
+  }
+
+  bulletHitEnemy(bullet, enemy) {
+    bullet.destroy();
+    enemy.hp--;
+    this.cameras.main.shake(80, 0.005);
+    if (enemy.hp <= 0) {
+      this.score += 50;
+      this.scoreTxt.setText('Счёт: ' + this.score);
+      const popup = this.add.text(enemy.x, enemy.y, '+50 💥', {
+        fontSize:'20px', fill:'#ef4444', fontFamily:'monospace', stroke:'#000', strokeThickness:3
+      }).setDepth(20);
+      this.tweens.add({targets:popup, y:popup.y-50, alpha:0, duration:800, onComplete:()=>popup.destroy()});
+      enemy.destroy();
+    } else {
+      this.tweens.add({ targets: enemy, alpha: 0.3, duration: 100, yoyo: true });
+    }
+  }
+
+  endGame() {
+    this.gameOver = true;
+    this.physics.pause();
+    this.player.setTint(0xff0000);
+    const box = this.add.graphics().setDepth(30);
+    box.fillStyle(0x000000, 0.8); box.fillRoundedRect(W/2-130, H/2-80, 260, 160, 16);
+    this.add.text(W/2, H/2-50, 'ИГРА ОКОНЧЕНА', {
+      fontSize:'24px', fill:'#ef4444', fontFamily:'monospace', stroke:'#000', strokeThickness:4
+    }).setOrigin(0.5).setDepth(31);
+    this.add.text(W/2, H/2, `Счёт: ${this.score}`, {
+      fontSize:'28px', fill:'#fbbf24', fontFamily:'monospace'
+    }).setOrigin(0.5).setDepth(31);
+    this.add.text(W/2, H/2+50, 'Нажми чтобы сыграть снова', {
+      fontSize:'16px', fill:'#aaa', fontFamily:'monospace'
+    }).setOrigin(0.5).setDepth(31);
+    this.input.once('pointerdown', () => this.scene.restart());
+  }
+
+  update() {
+    if (this.gameOver) return;
+
+    const onGround = this.player.body.blocked.down;
+    const goLeft  = this.cursors.left.isDown  || this.wasd.A.isDown || this.touchLeft;
+    const goRight = this.cursors.right.isDown || this.wasd.D.isDown || this.touchRight;
+    const doJump  = Phaser.Input.Keyboard.JustDown(this.cursors.up) ||
+                    Phaser.Input.Keyboard.JustDown(this.wasd.W) ||
+                    Phaser.Input.Keyboard.JustDown(this.spaceKey) ||
+                    this.touchJump;
+
+    if (goLeft)       { this.player.setVelocityX(-200); this.player.setFlipX(true);  }
+    else if (goRight) { this.player.setVelocityX(200);  this.player.setFlipX(false); }
+    else              { this.player.setVelocityX(0); }
+
+    if (doJump && onGround) {
+      this.player.setVelocityY(-520);
+      this.touchJump = false;
+    }
+
+    // Враги меняют направление у стенок
+    this.enemies.getChildren().forEach(e => {
+      if (e.body.blocked.right) e.setVelocityX(-120);
+      else if (e.body.blocked.left)  e.setVelocityX(120);
+    });
+
+    // Мигание звёзд фона
+    this.stars.forEach(s => { s.alpha = 0.2 + 0.6 * Math.abs(Math.sin(this.time.now/1000 + s.x)); });
+  }
+}
+
+// ============================================================
+// CONFIG
+// ============================================================
+new Phaser.Game({
+  type: Phaser.AUTO,
+  width: W,
+  height: H,
+  parent: 'game-container',
+  backgroundColor: '#0a0a1a',
+  physics: {
+    default: 'arcade',
+    arcade: { gravity: { y: 600 }, debug: false }
+  },
+  scene: [PreloadScene, GameScene]
+});
+</script>
+</body>
+</html>
